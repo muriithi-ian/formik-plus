@@ -45,6 +45,8 @@ function FormikContainer() {
         email: yup.string().email("Incorrect email format").required('Hello, you missed a bit'),
         description: yup.string().min(10, 'Description is too short').required('You missed a bit here :)'),
         selectOption: yup.string().required('Hello, you missed a bit'),
+        radioOption: yup.string().required('Hello, you missed a bit'),
+        checkboxOption: yup.array().min(1, 'Hello, you missed a bit')
     })
     // define the submit function
     const onsubmit = values => console.log('Form data: ', values)
@@ -59,6 +61,7 @@ function FormikContainer() {
                 formik => (
                     <Form>
                         {/* Form Fields start */}
+                        {console.log(formik.errors)}
 
                         <FormikControl
                             control='input'
@@ -79,6 +82,18 @@ function FormikContainer() {
                             label='Pick an option'
                             name='selectOption'
                             options={dropdownOptions}
+                        />
+                        <FormikControl
+                            control='radio'
+                            label='Radio topic'
+                            name='radioOption'
+                            options={radioOptions}
+                        />
+                        <FormikControl
+                            control='checkbox'
+                            label='Checkbox topics'
+                            name='checkboxOption'
+                            options={checkboxOptions}
                         />
 
 
