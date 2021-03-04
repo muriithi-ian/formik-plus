@@ -5,14 +5,13 @@ import FormikControl from './FormikControl';
 
 // Holds all Form elements rendered
 // Default parameters are:
-//      control:    input :: label:'string' name:'string' && type:'string' ...rest->additional attributes
+//      control:    input :: label:'string' name:'string' ...rest->additional attributes
 //                  textarea :: label:'string' name:'string'  ...rest->additional attributes 
 //                  select :: label:'string' name:'string' options:[{key,value}]  ...rest->additional attributes 
-//                  radio :: label:'string' name:'string' type: ...rest->additional attributes 
-//                  checkbox :: label:'string' name:'string' type: ...rest->additional attributes 
-//                  date :: label:'string' name:'string' type: ...rest->additional attributes 
-//                  chakraInput  :: label: name: type: ...rest->additional attributes 
-//      
+//                  radio :: label:'string' name:'string' options:[{key,value}] ...rest->additional attributes 
+//                  checkbox :: label:'string' name:'string' options:[{key,value}] ...rest->additional attributes 
+//                  date :: label:'string' name:'string' options:[{key,value}] ...rest->additional attributes 
+
 
 function FormikContainer() {
     const dropdownOptions = [
@@ -46,7 +45,8 @@ function FormikContainer() {
         description: yup.string().min(10, 'Description is too short').required('You missed a bit here :)'),
         selectOption: yup.string().required('Hello, you missed a bit'),
         radioOption: yup.string().required('Hello, you missed a bit'),
-        checkboxOption: yup.array().min(1, 'Hello, you missed a bit')
+        checkboxOption: yup.array().min(1, 'Hello, you missed a bit'),
+        birthDate: yup.date().required('You missed a bit here').nullable()
     })
     // define the submit function
     const onsubmit = values => console.log('Form data: ', values)
@@ -61,7 +61,6 @@ function FormikContainer() {
                 formik => (
                     <Form>
                         {/* Form Fields start */}
-                        {console.log(formik.errors)}
 
                         <FormikControl
                             control='input'
@@ -95,7 +94,11 @@ function FormikContainer() {
                             name='checkboxOption'
                             options={checkboxOptions}
                         />
-
+                        <FormikControl
+                            control='date'
+                            label='Pick a date'
+                            name='birthDate'
+                        />
 
                         {/* Form Fields end */}
                         <button type="submit">Submit</button>
